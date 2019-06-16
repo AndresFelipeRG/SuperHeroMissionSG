@@ -62,15 +62,22 @@ public class MissionController {
     }
     @RequestMapping(value = "/updateMission", method =RequestMethod.POST)
     public ResponseEntity<String> udpdateMission(@RequestParam Map<String, String> parameters){
-        List<Mission> missions = missionRepository.findByMissionName((String) parameters.get("missionName"));
+        List<Mission> missions = missionRepository.findByMissionName( parameters.get("missionName"));
         for(Mission mission: missions){
-            System.out.println((parameters.get("_isCompleted")).equals("true"));
             mission.setCompleted((parameters.get("_isCompleted")).equals("true"));
             mission.setDeleted((parameters.get("_isDeleted")).equals("true"));
             mission.setSuperHeroName( parameters.get("_superHeroName"));
             mission.setMissionName( parameters.get("_missionName"));
             missionRepository.save(mission);
         } 
+        return new ResponseEntity<>("", HttpStatus.OK);
+    }
+    @RequestMapping(value="/deleteMission", method=RequestMethod.POST)
+    public ResponseEntity<String> deleteMission(@RequestParam Map<String, String> parameters){
+        List<Mission> missions = missionRepository.findByMissionName(parameters.get("missionName"));
+        for(Mission mission: missions){
+            missionRepository.delete(mission);
+        }
         return new ResponseEntity<>("", HttpStatus.OK);
     }
     private void getMission(JSONArray missions, Mission mission) {
