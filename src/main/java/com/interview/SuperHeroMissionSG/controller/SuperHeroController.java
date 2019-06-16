@@ -77,7 +77,7 @@ public class SuperHeroController {
         List<Mission> missions = missionRepository.findBySuperHeroName(parameters.get("superHeroName"));
         JSONArray missionsJson = new JSONArray();
         for(Mission mission: missions){
-            if(!mission.isCompleted() && !mission.isDeleted()){
+            if(!mission.isCompleted()){
                 getMission(missionsJson, mission);
             }
         }

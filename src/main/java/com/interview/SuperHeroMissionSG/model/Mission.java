@@ -1,5 +1,6 @@
 package com.interview.SuperHeroMissionSG.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,14 +25,18 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 
-@SQLDelete(sql = "UPDATE missions SET isDeleted = true WHERE id=?", check = ResultCheckStyle.COUNT)
-@Where(clause = "isDeleted <> true")
+@SQLDelete(sql = "UPDATE mission SET is_deleted  = true WHERE id=?", check = ResultCheckStyle.COUNT)
+@Where(clause = "is_deleted <> true")
 public class Mission {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
+    @Column(name = "missionName")
     private String missionName;
+    @Column(name = "superHeroName")
     private String superHeroName;
+    @Column(name = "isCompleted")
     private boolean isCompleted;
+    @Column(name = "isDeleted")
     private boolean isDeleted;
 }
