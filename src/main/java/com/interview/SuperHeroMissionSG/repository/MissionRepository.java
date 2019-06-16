@@ -8,5 +8,4 @@ public interface MissionRepository extends CrudRepository<Mission, Long> {
     
     List<Mission> findByMissionName(String missionName);
     List<Mission> findBySuperHeroName(String superHeroName);
-    
 }

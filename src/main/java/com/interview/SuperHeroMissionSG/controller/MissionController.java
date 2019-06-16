@@ -2,6 +2,7 @@ package com.interview.SuperHeroMissionSG.controller;
 
 import com.interview.SuperHeroMissionSG.model.Mission;
 import com.interview.SuperHeroMissionSG.repository.MissionRepository;
+import java.util.List;
 import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,9 +22,9 @@ public class MissionController {
     MissionRepository missionRepository;
     
     @RequestMapping(value="/createMission", method = RequestMethod.POST)
-    public ResponseEntity<String> createMission(@RequestParam Map<String, Object> parameters){
-        missionRepository.save(Mission.builder().isCompleted(Boolean.getBoolean((String) parameters.get("isCompleted")))
-                                                .isDeleted(Boolean.getBoolean((String) parameters.get("isDeleted")))
+    public ResponseEntity<String> createMission(@RequestParam Map<String, String> parameters){
+        missionRepository.save(Mission.builder().isCompleted(parameters.get("isCompleted").equals("true"))
+                                                .isDeleted(parameters.get("isDeleted").equals("true"))
                                                 .missionName((String) parameters.get("missionName"))
                                                 .superHeroName((String) parameters.get("superHeroName"))
                                                 .build()
@@ -35,12 +36,7 @@ public class MissionController {
         
         JSONArray missions= new JSONArray();
         for(Mission mission: missionRepository.findAll()){
-            JSONObject missionJson = new JSONObject();
-            missionJson.put("missionName", mission.getSuperHeroName());
-            missionJson.put("superHeroName", mission.getSuperHeroName());
-            missionJson.put("isCompleted", mission.isCompleted());
-            missionJson.put("isDeleted", mission.isDeleted());
-            missions.put(missionJson);
+            getMission(missions, mission);
         }
         return new ResponseEntity<>(missions.toString(), HttpStatus.OK); 
     }
@@ -49,12 +45,7 @@ public class MissionController {
         
         JSONArray missions= new JSONArray();
         for(Mission mission: missionRepository.findByMissionName(parameters.get("missionName"))){
-            JSONObject missionJson = new JSONObject();
-            missionJson.put("missionName", mission.getSuperHeroName());
-            missionJson.put("superHeroName", mission.getSuperHeroName());
-            missionJson.put("isCompleted", mission.isCompleted());
-            missionJson.put("isDeleted", mission.isDeleted());
-            missions.put(missionJson);
+            getMission(missions, mission);
         }
         return new ResponseEntity<>(missions.toString(), HttpStatus.OK);
         
@@ -64,14 +55,30 @@ public class MissionController {
         
         JSONArray missions= new JSONArray();
         for(Mission mission: missionRepository.findBySuperHeroName(parameters.get("superHeroName"))){
-            JSONObject missionJson = new JSONObject();
-            missionJson.put("missionName", mission.getSuperHeroName());
-            missionJson.put("superHeroName", mission.getSuperHeroName());
-            missionJson.put("isCompleted", mission.isCompleted());
-            missionJson.put("isDeleted", mission.isDeleted());
-            missions.put(missionJson);
+            getMission(missions, mission);
         }
         return new ResponseEntity<>(missions.toString(), HttpStatus.OK);
         
+    }
+    @RequestMapping(value = "/updateMission", method =RequestMethod.POST)
+    public ResponseEntity<String> udpdateMission(@RequestParam Map<String, String> parameters){
+        List<Mission> missions = missionRepository.findByMissionName((String) parameters.get("missionName"));
+        for(Mission mission: missions){
+            System.out.println((parameters.get("_isCompleted")).equals("true"));
+            mission.setCompleted((parameters.get("_isCompleted")).equals("true"));
+            mission.setDeleted((parameters.get("_isDeleted")).equals("true"));
+            mission.setSuperHeroName( parameters.get("_superHeroName"));
+            mission.setMissionName( parameters.get("_missionName"));
+            missionRepository.save(mission);
+        } 
+        return new ResponseEntity<>("", HttpStatus.OK);
+    }
+    private void getMission(JSONArray missions, Mission mission) {
+        JSONObject missionJson = new JSONObject();
+        missionJson.put("missionName", mission.getMissionName());
+        missionJson.put("superHeroName", mission.getSuperHeroName());
+        missionJson.put("isCompleted", mission.isCompleted());
+        missionJson.put("isDeleted", mission.isDeleted());
+        missions.put(missionJson);
     }
 }

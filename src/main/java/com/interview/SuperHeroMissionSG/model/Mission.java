@@ -15,7 +15,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "Mission")
 @Data
-@Getter
 @Setter
 @Builder
 @AllArgsConstructor
