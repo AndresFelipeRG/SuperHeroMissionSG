@@ -32,4 +32,17 @@ public class SuperHeroController {
                                                );
         return new ResponseEntity<>("", HttpStatus.OK);
     }
+    
+   /* @RequestMapping(value="/getAllSuperHeroes", method= RequestMethod.GET)
+    public ResponseEntity<String> getAllSuperHeroes() throws JSONException{
+        
+        JSONArray heroes = new JSONArray();
+        for(SuperHero hero: superHeroRepository.findAll()){
+            JSONObject heroJson = new JSONObject();
+            heroJson.put("superHeroName", hero.getSuperHeroName());
+            heroes.put(heroJson);
+        }
+        return new ResponseEntity<>(heroes.toString(), HttpStatus.OK);
+        
+    }*/
 }
