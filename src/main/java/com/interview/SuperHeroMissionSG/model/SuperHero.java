@@ -6,9 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import org.hibernate.annotations.ResultCheckStyle;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,8 +21,6 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@SQLDelete(sql = "UPDATE super_hero SET deleted = true WHERE id=?", check = ResultCheckStyle.COUNT)
-@Where(clause = "deleted <> true")
 public class SuperHero {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -38,6 +33,4 @@ public class SuperHero {
     private String lastName;
     @Column(name = "missionName")
     private String missionName;
-    @Column(name = "deleted")
-    private boolean deleted;
 }

@@ -1,6 +1,8 @@
 package com.interview.SuperHeroMissionSG.controller;
 
+import com.interview.SuperHeroMissionSG.model.Mission;
 import com.interview.SuperHeroMissionSG.model.SuperHero;
+import com.interview.SuperHeroMissionSG.repository.MissionRepository;
 import com.interview.SuperHeroMissionSG.repository.SuperHeroRepository;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class SuperHeroController {
     @Autowired
     private SuperHeroRepository superHeroRepository;
+    @Autowired
+    private MissionRepository missionRepository;
     
     @RequestMapping(value="/createSuperHero", method = RequestMethod.POST)
     public ResponseEntity<String> createSuperHero(@RequestParam Map<String, String> parameters){
@@ -68,6 +72,28 @@ public class SuperHeroController {
         }
         return new ResponseEntity<>("", HttpStatus.OK);
     }
+    @RequestMapping(value="/getActiveMissions", method = RequestMethod.GET)
+    public ResponseEntity<String> getActiveMissions(@RequestParam Map<String, String> parameters){
+        List<Mission> missions = missionRepository.findBySuperHeroName(parameters.get("superHeroName"));
+        JSONArray missionsJson = new JSONArray();
+        for(Mission mission: missions){
+            if(!mission.isCompleted() && !mission.isDeleted()){
+                getMission(missionsJson, mission);
+            }
+        }
+        return new ResponseEntity<>(missionsJson.toString(), HttpStatus.OK);
+    }
+    @RequestMapping(value="/getCompletedMissions", method = RequestMethod.GET)
+    public ResponseEntity<String> getCompletedMissions(@RequestParam Map<String, String> parameters){
+        List<Mission> missions = missionRepository.findBySuperHeroName(parameters.get("superHeroName"));
+        JSONArray missionsJson = new JSONArray();
+        for(Mission mission: missions){
+            if(mission.isCompleted()){
+                getMission(missionsJson, mission);
+            }
+        }
+        return new ResponseEntity<>(missionsJson.toString(), HttpStatus.OK);
+    }
     private void getSuperHero(JSONArray heroes, SuperHero hero) {
         JSONObject heroJson = new JSONObject();
         heroJson.put("superHeroName", hero.getSuperHeroName());
@@ -75,5 +101,13 @@ public class SuperHeroController {
         heroJson.put("firstName", hero.getFirstName());
         heroJson.put("lastName", hero.getLastName());
         heroes.put(heroJson);
+    }
+    private void getMission(JSONArray missions, Mission mission) {
+        JSONObject missionJson = new JSONObject();
+        missionJson.put("missionName", mission.getMissionName());
+        missionJson.put("superHeroName", mission.getSuperHeroName());
+        missionJson.put("isCompleted", mission.isCompleted());
+        missionJson.put("isDeleted", mission.isDeleted());
+        missions.put(missionJson);
     }
 }
