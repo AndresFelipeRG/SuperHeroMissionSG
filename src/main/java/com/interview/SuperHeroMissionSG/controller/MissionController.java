@@ -42,6 +42,35 @@ public class MissionController {
             missionJson.put("isDeleted", mission.isDeleted());
             missions.put(missionJson);
         }
+        return new ResponseEntity<>(missions.toString(), HttpStatus.OK); 
+    }
+    @RequestMapping(value="/getMissionByName", method= RequestMethod.GET)
+    public ResponseEntity<String> getMissionByName(@RequestParam Map<String, String> parameters) throws JSONException{
+        
+        JSONArray missions= new JSONArray();
+        for(Mission mission: missionRepository.findByMissionName(parameters.get("missionName"))){
+            JSONObject missionJson = new JSONObject();
+            missionJson.put("missionName", mission.getSuperHeroName());
+            missionJson.put("superHeroName", mission.getSuperHeroName());
+            missionJson.put("isCompleted", mission.isCompleted());
+            missionJson.put("isDeleted", mission.isDeleted());
+            missions.put(missionJson);
+        }
+        return new ResponseEntity<>(missions.toString(), HttpStatus.OK);
+        
+    }
+    @RequestMapping(value="/getMissionBySuperHeroName", method= RequestMethod.GET)
+    public ResponseEntity<String> getMissionBySuperHeroName(@RequestParam Map<String, String> parameters) throws JSONException{
+        
+        JSONArray missions= new JSONArray();
+        for(Mission mission: missionRepository.findBySuperHeroName(parameters.get("superHeroName"))){
+            JSONObject missionJson = new JSONObject();
+            missionJson.put("missionName", mission.getSuperHeroName());
+            missionJson.put("superHeroName", mission.getSuperHeroName());
+            missionJson.put("isCompleted", mission.isCompleted());
+            missionJson.put("isDeleted", mission.isDeleted());
+            missions.put(missionJson);
+        }
         return new ResponseEntity<>(missions.toString(), HttpStatus.OK);
         
     }
