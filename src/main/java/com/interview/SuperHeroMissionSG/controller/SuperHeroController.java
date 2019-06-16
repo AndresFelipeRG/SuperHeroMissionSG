@@ -2,7 +2,7 @@ package com.interview.SuperHeroMissionSG.controller;
 
 import com.interview.SuperHeroMissionSG.model.SuperHero;
 import com.interview.SuperHeroMissionSG.repository.SuperHeroRepository;
-
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
@@ -40,8 +40,7 @@ public class SuperHeroController {
         for(SuperHero hero: superHeroRepository.findAll()){
             getSuperHero(heroes, hero);
         }
-        return new ResponseEntity<>(heroes.toString(), HttpStatus.OK);
-        
+        return new ResponseEntity<>(heroes.toString(), HttpStatus.OK);   
     }
     @RequestMapping(value="/getSuperHeroByName", method= RequestMethod.GET)
     public ResponseEntity<String> getSuperHeroByName(@RequestParam Map<String, String> parameters) throws JSONException{
@@ -50,8 +49,7 @@ public class SuperHeroController {
         for(SuperHero hero: superHeroRepository.findBySuperHeroName(parameters.get("superHeroName"))){
             getSuperHero(heroes, hero);
         }
-        return new ResponseEntity<>(heroes.toString(), HttpStatus.OK);
-        
+        return new ResponseEntity<>(heroes.toString(), HttpStatus.OK); 
     }
     @RequestMapping(value="/getSuperHeroByMissionName", method= RequestMethod.GET)
     public ResponseEntity<String> getSuperHeroByMissionName(@RequestParam Map<String, String> parameters) throws JSONException{
@@ -61,7 +59,14 @@ public class SuperHeroController {
             getSuperHero(heroes, hero);
         }
         return new ResponseEntity<>(heroes.toString(), HttpStatus.OK);
-        
+    }
+    @RequestMapping(value="/deleteSuperHero", method = RequestMethod.POST)
+    public ResponseEntity<String> deleteSuperHero(@RequestParam Map<String, String> parameters){
+        List<SuperHero> heroes = superHeroRepository.findBySuperHeroName(parameters.get("superHeroName"));
+        for(SuperHero hero: heroes){
+            superHeroRepository.delete(hero);
+        }
+        return new ResponseEntity<>("", HttpStatus.OK);
     }
     private void getSuperHero(JSONArray heroes, SuperHero hero) {
         JSONObject heroJson = new JSONObject();
