@@ -9,17 +9,21 @@
           <th scope="col">First Name</th>
           <th scope="col">Last Name</th>
           <th scope="col">Mission Name</th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let superHero of superHeroes" (click)="onSelect(superHero)">
           <td>{{ superHero.superHeroName }}
-          <button class="delete" title="delete superHero"
-            (click)="deleteSuperHero(superHero)">Delete SuperHero</button></td>
+         </td>
           <td>{{ superHero.firstName}}</td>
           <td>{{ superHero.lastName}}</td>
           <td>{{ superHero.missionName}}</td>
-          <td><input type="button" value="Edit" (click)="details(superHero)"/></td>
+          <td><div><button class="delete" (click)="details(superHero)">Edit</button>
+           <button class="delete" title="delete superHero"
+            (click)="deleteSuperHero(superHero)">Delete SuperHero</button>
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>

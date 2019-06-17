@@ -2,22 +2,24 @@
 
 <div class="card my-5">
   <div class="card-body">
-    <table class="table-hover table-bordered table-striped">
+    <table class="table table-bordered table-striped">
       <thead class="thead-dark">
         <tr>
           <th scope="col">Mission Name</th>
           <th scope="col">Super Hero Name</th>
           <th scope="col">Completed</th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let mission of missions" (click)="onSelect(mission)" >
           <td>{{ mission.missionName}}
-          <button class="delete" title="delete mission"
-            (click)="deleteMission(mission)">Delete mission</button></td>
+          </td>
           <td>{{ mission.superHeroName }}</td>
           <td>{{ mission.isCompleted}}</td>
-          <td><input type="button" value="Edit" (click)="details(mission)"/></td>
+          <td><button (click)="details(mission)">Edit</button>
+          <button class="delete" title="delete mission"
+            (click)="deleteMission(mission)">Delete mission</button></td>
         </tr>
       </tbody>
     </table>
