@@ -1,4 +1,5 @@
 import { MissionService } from './mission.service';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Component, OnInit} from '@angular/core';
 import {Mission} from './mission';
 
@@ -21,4 +22,10 @@ export class MissionComponent implements OnInit{
                 this.missions = missionData
           })
     }
-}
+    deleteMission(mission: Mission):void{
+      this.missionService.deleteMission(mission).subscribe(
+        result => this.missionService.navigateToMissions()
+      );
+    }
+
+  }

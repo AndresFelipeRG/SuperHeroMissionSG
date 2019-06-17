@@ -78,7 +78,7 @@ public class MissionController {
         return new ResponseEntity<>("", HttpStatus.OK);
     }
     @RequestMapping(value="/deleteMission", method=RequestMethod.POST)
-    public ResponseEntity<String> deleteMission(@RequestParam Map<String, String> parameters){
+    public ResponseEntity<String> deleteMission(@RequestBody Map<String, String> parameters){
         List<Mission> missions = missionRepository.findByMissionName(parameters.get("missionName"));
         for(Mission mission: missions){
             missionRepository.delete(mission);
