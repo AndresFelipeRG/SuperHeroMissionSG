@@ -23,4 +23,7 @@ export class SuperHeroComponent implements OnInit{
                 this.superHeroes = superHeroesData
           })
     }
+    deleteSuperHero(superHero: SuperHero){
+      this.superHeroService.deleteSuperHero(superHero).subscribe();
+    }
 }

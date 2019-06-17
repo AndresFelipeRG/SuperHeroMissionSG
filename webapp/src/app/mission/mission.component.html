@@ -14,7 +14,7 @@
         <tr *ngFor="let mission of missions">
           <td>{{ mission.missionName}}
           <button class="delete" title="delete mission"
-            (click)="deleteMission(mission)">x</button></td>
+            (click)="deleteMission(mission)">Delete mission</button></td>
           <td>{{ mission.superHeroName }}</td>
           <td>{{ mission.isCompleted}}</td>
         </tr>

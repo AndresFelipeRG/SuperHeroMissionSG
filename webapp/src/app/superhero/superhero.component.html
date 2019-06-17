@@ -13,7 +13,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let superHero of superHeroes">
-          <td>{{ superHero.superHeroName }}</td>
+          <td>{{ superHero.superHeroName }}
+          <button class="delete" title="delete superHero"
+            (click)="deleteSuperHero(superHero)">Delete SuperHero</button></td>
           <td>{{ superHero.firstName}}</td>
           <td>{{ superHero.lastName}}</td>
           <td>{{ superHero.missionName}}</td>

@@ -68,7 +68,7 @@ public class SuperHeroController {
         return new ResponseEntity<>(heroes.toString(), HttpStatus.OK);
     }
     @RequestMapping(value="/deleteSuperHero", method = RequestMethod.POST)
-    public ResponseEntity<String> deleteSuperHero(@RequestParam Map<String, String> parameters){
+    public ResponseEntity<String> deleteSuperHero(@RequestBody Map<String, String> parameters){
         List<SuperHero> heroes = superHeroRepository.findBySuperHeroName(parameters.get("superHeroName"));
         for(SuperHero hero: heroes){
             superHeroRepository.delete(hero);
