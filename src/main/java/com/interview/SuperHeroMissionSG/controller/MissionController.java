@@ -4,17 +4,21 @@ import com.interview.SuperHeroMissionSG.model.Mission;
 import com.interview.SuperHeroMissionSG.repository.MissionRepository;
 import java.util.List;
 import java.util.Map;
+import org.assertj.core.util.Preconditions;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class MissionController {
     
@@ -22,9 +26,10 @@ public class MissionController {
     MissionRepository missionRepository;
     
     @RequestMapping(value="/createMission", method = RequestMethod.POST)
-    public ResponseEntity<String> createMission(@RequestParam Map<String, String> parameters){
-        missionRepository.save(Mission.builder().isCompleted(parameters.get("isCompleted").equals("true"))
-                                                .isDeleted(parameters.get("isDeleted").equals("true"))
+    public ResponseEntity<String> createMission(@RequestBody Map<String, String> parameters){
+        System.out.println(parameters.toString());
+        missionRepository.save(Mission.builder().isCompleted( (parameters.get("isCompleted")) == null?false:(parameters.get("isCompleted")).equals("true"))
+                                                .isDeleted(parameters.get("isDeleted") == null?false:parameters.get("isDeleted").equals("true"))
                                                 .missionName((String) parameters.get("missionName"))
                                                 .superHeroName((String) parameters.get("superHeroName"))
                                                 .build()
