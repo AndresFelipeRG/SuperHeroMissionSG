@@ -1,7 +1,6 @@
 import { SuperHeroService } from './superhero.service';
 import {Component, OnInit} from '@angular/core';
 import {SuperHero} from './superhero';
-
 @Component({
   selector: 'app-superhero',
   templateUrl: './superhero.component.html',
@@ -9,13 +8,18 @@ import {SuperHero} from './superhero';
 })
 export class SuperHeroComponent implements OnInit{
     superHeroes: SuperHero[];
-
+    selectedSuperHero: SuperHero;
     constructor(private superHeroService: SuperHeroService){ }
 
     ngOnInit(): void {
      this. getSuperHeroes();
 
-
+    }
+    onSelect(superHero: SuperHero): void{
+      this.selectedSuperHero = superHero;
+    }
+    details(superHero: SuperHero): void{
+      this.superHeroService.navigateToDetails(superHero);
     }
     getSuperHeroes(): void {
       this.superHeroService.getAllSuperHeroes()

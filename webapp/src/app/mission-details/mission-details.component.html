@@ -8,26 +8,13 @@
   <h2>{{mission.missionName}}</h2>
   </div>
   <input type="text"  class="form-control" id="missionNameInput"  name="missionNameInput" formControlName="_missionName" [(ngModel)]="mission._missionName" ng-minlength="1" ng-maxlength="40" required placeholder="Enter new value">
+
   <div>
-   <div [hidden]="!mission._missionName" class="alert alert-danger">
-        Mission Name is too short!
-   </div>
-   <div [hidden]="!mission._missionName" class="alert alert-danger">
-        Mission Name is too  long!
-   </div>
-  </div>
-  <div>
-  <label for = "!mission._superHeroName">Super Hero Name:</label>
+  <label for = "mission._superHeroName">Super Hero Name:</label>
   <h2>{{mission.superHeroName}}</h2>
   </div>
   <input type="text"  class="form-control" id="superHeroNameInput"  name="superHeroNameInput" formControlName="_superHeroName" [(ngModel)]="mission._superHeroName"  ng-maxlength=40 required placeholder="Enter new value">
-    <div role = "alert">
-    <span class="error" ng-show="missionform.superHeroNameInput.$error.required">
-      Super Hero Name is empty!</span>
 
-   <span class="error" ng-show="missionform.superHeroNameInput.$error.ngMaxlength">
-      Super Hero Name is longer than 50 characters!</span>
-  </div>
   <div>
     isCompleted : {{mission.isCompleted}}
   </div>

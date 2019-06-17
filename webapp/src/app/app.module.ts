@@ -5,7 +5,7 @@ import { HttpClientModule }    from '@angular/common/http';
 import { MissionService } from './mission/mission.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import {SuperHeroDetailsComponent} from './superhero-details/superhero-details.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {MissionComponent} from './mission/mission.component';
@@ -16,7 +16,7 @@ import { MissionDetailsComponent } from './mission-details/mission-details.compo
 @NgModule({
   declarations: [
     AppComponent, MissionComponent, AddMissionComponent, SuperHeroComponent, AddSuperHeroComponent,
-    MissionDetailsComponent
+    MissionDetailsComponent, SuperHeroDetailsComponent
   ],
   imports: [
     BrowserModule,

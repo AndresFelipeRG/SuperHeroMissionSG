@@ -12,13 +12,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let superHero of superHeroes">
+        <tr *ngFor="let superHero of superHeroes" (click)="onSelect(superHero)">
           <td>{{ superHero.superHeroName }}
           <button class="delete" title="delete superHero"
             (click)="deleteSuperHero(superHero)">Delete SuperHero</button></td>
           <td>{{ superHero.firstName}}</td>
           <td>{{ superHero.lastName}}</td>
           <td>{{ superHero.missionName}}</td>
+          <td><input type="button" value="Edit" (click)="details(superHero)"/></td>
         </tr>
       </tbody>
     </table>

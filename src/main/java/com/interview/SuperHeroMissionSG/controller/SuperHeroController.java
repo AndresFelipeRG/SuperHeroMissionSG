@@ -39,7 +39,18 @@ public class SuperHeroController {
                                                );
         return new ResponseEntity<>("", HttpStatus.OK);
     }
-    
+    @RequestMapping(value = "/updateSuperHero", method =RequestMethod.POST)
+    public ResponseEntity<String> udpdateSuperHero(@RequestBody Map<String, String> parameters){
+        List<SuperHero> heroes = superHeroRepository.findBySuperHeroName( parameters.get("superHeroName"));
+        for(SuperHero hero: heroes){
+            hero.setFirstName((parameters.get("_firstName")));
+            hero.setLastName((parameters.get("_lastName")));
+            hero.setSuperHeroName( parameters.get("_superHeroName"));
+            hero.setMissionName( parameters.get("_missionName"));
+            superHeroRepository.save(hero);
+        } 
+        return new ResponseEntity<>("", HttpStatus.OK);
+    }
     @RequestMapping(value="/getAllSuperHeroes", method= RequestMethod.GET)
     public ResponseEntity<String> getAllSuperHeroes() throws JSONException{
         

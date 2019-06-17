@@ -24,7 +24,10 @@ export class AddSuperHeroComponent{
 
      this.superHeroService.saveSuperHero(this.superhero).subscribe(result => this.navigateToSuperHeroes());
   }
+  cancel(){
+     this.navigateToSuperHeroes();
+  }
   navigateToSuperHeroes(){
-    this.router.navigate(['/superheroes'])
+    this.router.navigate(['/superheroes']);
   }
 }
