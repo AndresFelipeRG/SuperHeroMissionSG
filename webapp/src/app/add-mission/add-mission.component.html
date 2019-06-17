@@ -1,12 +1,12 @@
 <form [formGroup] ="profileForm" (ngSubmit)="onSubmit()">
   <label>
     Mission Name:
-    <input type="text" formControlName="missionName" [(ngModel)]="mission.missionName">
+    <input type="text" formControlName="missionName" [(ngModel)]="mission.missionName" required ng-minlength="1" ng-maxlength="40">
   </label>
 
   <label>
     Super Hero Name:
-    <input type="text" formControlName="superHeroName" [(ngModel)]="mission.superHeroName">
+    <input type="text" formControlName="superHeroName" [(ngModel)]="mission.superHeroName"] required ng-minlength="1" ng-maxlength="40">
   </label>
 
   <label>
