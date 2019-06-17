@@ -1,3 +1,4 @@
+import { MissionDetailsComponent } from './mission-details/mission-details.component';
 
 import { MissionComponent } from './mission/mission.component';
 import { AddMissionComponent } from './add-mission/add-mission.component';
@@ -10,7 +11,8 @@ const routes: Routes = [
   {path: 'missions', component: MissionComponent},
   {path: 'createMission', component: AddMissionComponent},
   {path: 'superheroes', component: SuperHeroComponent},
-  {path: 'createSuperHero', component: AddSuperHeroComponent}
+  {path: 'createSuperHero', component: AddSuperHeroComponent},
+  {path: 'missionDetails/:missionName/:superHeroName/:isCompleted/:isDeleted', component: MissionDetailsComponent}
 ];
 
 @NgModule({

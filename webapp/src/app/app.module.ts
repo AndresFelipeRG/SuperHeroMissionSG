@@ -11,15 +11,19 @@ import { AppComponent } from './app.component';
 import {MissionComponent} from './mission/mission.component';
 import {AddMissionComponent} from './add-mission/add-mission.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule} from '@angular/forms';
+import { MissionDetailsComponent } from './mission-details/mission-details.component';
 @NgModule({
   declarations: [
-    AppComponent, MissionComponent, AddMissionComponent, SuperHeroComponent, AddSuperHeroComponent
+    AppComponent, MissionComponent, AddMissionComponent, SuperHeroComponent, AddSuperHeroComponent,
+    MissionDetailsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [MissionService, SuperHeroService],
   bootstrap: [AppComponent]

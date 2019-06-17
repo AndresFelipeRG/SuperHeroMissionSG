@@ -66,7 +66,7 @@ public class MissionController {
         
     }
     @RequestMapping(value = "/updateMission", method =RequestMethod.POST)
-    public ResponseEntity<String> udpdateMission(@RequestParam Map<String, String> parameters){
+    public ResponseEntity<String> udpdateMission(@RequestBody Map<String, String> parameters){
         List<Mission> missions = missionRepository.findByMissionName( parameters.get("missionName"));
         for(Mission mission: missions){
             mission.setCompleted((parameters.get("_isCompleted")).equals("true"));

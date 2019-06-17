@@ -21,7 +21,11 @@ export class AddMissionComponent{
   }
   onSubmit(){
      this.mission.setIsDeleted(false);
+     this.mission.setIsCompleted(this.mission.isCompleted === null ? false: this.mission.isCompleted);
      this.missionService.saveMission(this.mission).subscribe(result => this.navigateToMissions());
+  }
+  cancel(){
+    this.navigateToMissions();
   }
   navigateToMissions(){
     this.router.navigate(['/missions'])

@@ -1,4 +1,4 @@
-table {
+.table-hover {
   width: 100%;
 }
 
@@ -7,6 +7,17 @@ table {
   width: 100%;
 }
 
-td, th {
+.table-hover td{
   width: 25%;
+  color: blue
+}
+.table-hover th{
+  width: 25%;
+  color: black
+}
+.table-hover tr:hover, td:hover{
+  background-color:white;
+}
+.table-hover tr:hover, th:hover{
+  background-color:white;
 }
