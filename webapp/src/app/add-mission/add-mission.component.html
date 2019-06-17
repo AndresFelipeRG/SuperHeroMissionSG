@@ -1,0 +1,17 @@
+<form [formGroup] ="profileForm" (ngSubmit)="onSubmit()">
+  <label>
+    Mission Name:
+    <input type="text" formControlName="missionName" [(ngModel)]="mission.missionName">
+  </label>
+
+  <label>
+    Super Hero Name:
+    <input type="text" formControlName="superHeroName" [(ngModel)]="mission.superHeroName">
+  </label>
+
+  <label>
+    Completed:
+    <input type="checkbox" formControlName="isCompleted" [checked]="isCompleted.value" [(ngModel)]="mission.isCompleted" value=false>
+  </label>
+  <button type="submit" [disabled]="!profileForm.valid">Submit</button>
+</form>
