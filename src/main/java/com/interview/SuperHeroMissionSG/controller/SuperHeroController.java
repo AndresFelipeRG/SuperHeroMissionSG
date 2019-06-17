@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,7 +30,7 @@ public class SuperHeroController {
     private MissionRepository missionRepository;
     
     @RequestMapping(value="/createSuperHero", method = RequestMethod.POST)
-    public ResponseEntity<String> createSuperHero(@RequestParam Map<String, String> parameters){
+    public ResponseEntity<String> createSuperHero(@RequestBody Map<String, String> parameters){
         superHeroRepository.save(SuperHero.builder().firstName(parameters.get("firstName"))
                                                     .lastName(parameters.get("lastName"))
                                                     .missionName(parameters.get("missionName"))
