@@ -31,6 +31,12 @@ public class SuperHeroController {
     
     @RequestMapping(value="/createSuperHero", method = RequestMethod.POST)
     public ResponseEntity<String> createSuperHero(@RequestBody Map<String, String> parameters){
+        List<SuperHero> heroes = superHeroRepository.findBySuperHeroName( parameters.get("superHeroName"));
+        for(SuperHero hero: heroes){
+            if(hero.getMissionName().equals(parameters.get("missionName"))){
+                return new ResponseEntity<>("{\"duplicate\": true}", HttpStatus.OK);
+            }
+        }
         superHeroRepository.save(SuperHero.builder().firstName(parameters.get("firstName"))
                                                     .lastName(parameters.get("lastName"))
                                                     .missionName(parameters.get("missionName"))
