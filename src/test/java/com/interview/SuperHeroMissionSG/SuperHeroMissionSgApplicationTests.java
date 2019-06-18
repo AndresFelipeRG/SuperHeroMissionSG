@@ -1,14 +1,19 @@
 package com.interview.SuperHeroMissionSG;
 
 
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.junit4.SpringRunner;
 
-@SpringBootTest
-class SuperHeroMissionSgApplicationTests {
+@RunWith(SpringRunner.class)
+public class SuperHeroMissionSgApplicationTests {
 
 	@Test
-	void contextLoads() {
+	public void contextLoads() {
+	
+	  assertTrue(true);
 	}
+	
 
 }
