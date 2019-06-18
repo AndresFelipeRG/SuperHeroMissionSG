@@ -6,7 +6,7 @@ import com.interview.SuperHeroMissionSG.repository.MissionRepository;
 import com.interview.SuperHeroMissionSG.repository.SuperHeroRepository;
 import java.util.List;
 import java.util.Map;
-
+import org.assertj.core.util.Preconditions;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +31,9 @@ public class SuperHeroController {
     
     @RequestMapping(value="/createSuperHero", method = RequestMethod.POST)
     public ResponseEntity<String> createSuperHero(@RequestBody Map<String, String> parameters){
+        if(parameters.get("superHeroName") == null ||parameters.get("superHeroName").isEmpty() ){
+            return new ResponseEntity<>("{\"emptySuperHeroName\": true}", HttpStatus.OK);
+        }
         List<SuperHero> heroes = superHeroRepository.findBySuperHeroName( parameters.get("superHeroName"));
         for(SuperHero hero: heroes){
             if(hero.getMissionName().equals(parameters.get("missionName"))){
@@ -40,7 +43,7 @@ public class SuperHeroController {
         superHeroRepository.save(SuperHero.builder().firstName(parameters.get("firstName"))
                                                     .lastName(parameters.get("lastName"))
                                                     .missionName(parameters.get("missionName"))
-                                                    .superHeroName(parameters.get("superHeroName"))
+                                                    .superHeroName((parameters.get("superHeroName")))
                                                     .build()
                                                );
         return new ResponseEntity<>("", HttpStatus.OK);

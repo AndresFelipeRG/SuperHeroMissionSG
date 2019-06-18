@@ -1,9 +1,11 @@
 package com.interview.SuperHeroMissionSG.controller;
 
+import com.google.common.base.Preconditions;
 import com.interview.SuperHeroMissionSG.model.Mission;
 import com.interview.SuperHeroMissionSG.repository.MissionRepository;
 import java.util.List;
 import java.util.Map;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,7 +28,10 @@ public class MissionController {
     
     @RequestMapping(value="/createMission", method = RequestMethod.POST)
     public ResponseEntity<String> createMission(@RequestBody Map<String, String> parameters){
-        List<Mission> missions = missionRepository.findByMissionName( parameters.get("missionName"));
+        if(parameters.get("missionName") == null ||parameters.get("missionName").isEmpty() ){
+            return new ResponseEntity<>("{\"emptyMissionName\": true}", HttpStatus.OK);
+        }
+        List<Mission> missions = missionRepository.findByMissionName(parameters.get("missionName"));
         for(Mission mission: missions){
             if(mission.getSuperHeroName().equals(parameters.get("superHeroName"))){
                 return new ResponseEntity<>("{\"duplicate\": true}", HttpStatus.OK);
@@ -34,7 +39,7 @@ public class MissionController {
         }
         missionRepository.save(Mission.builder().isCompleted( (parameters.get("isCompleted")) == null?false:(parameters.get("isCompleted")).equals("true"))
                                                 .isDeleted(parameters.get("isDeleted") == null?false:parameters.get("isDeleted").equals("true"))
-                                                .missionName((String) parameters.get("missionName"))
+                                                .missionName((String) (parameters.get("missionName")))
                                                 .superHeroName((String) parameters.get("superHeroName"))
                                                 .build()
                                                );
