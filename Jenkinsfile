@@ -20,6 +20,17 @@ pipeline {
          sh 'mvn install'
         }
       }
+      stage('Angular UI build and run'){
+        steps{
+          nodjs('installation'){
+            dir('./webapp'){
+              sh 'npm install'
+              sh 'npm install -g @angular/cli'
+              sh 'npm run start'
+            }
+          }
+        }
+      }
       stage('Docker: Build and Deploy'){
         steps{
           sh 'docker build --tag superheromission --no-cache .'
