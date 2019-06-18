@@ -22,7 +22,7 @@ pipeline {
       }
       stage('Angular UI build and run'){
         steps{
-          nodjs('installation'){
+          nodejs('installation'){
             dir('./webapp'){
               sh 'npm install'
               sh 'npm install -g @angular/cli'
