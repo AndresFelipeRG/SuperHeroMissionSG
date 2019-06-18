@@ -8,7 +8,7 @@ WORKDIR /app/webapp/
 RUN npm install
 RUN npm install -g @angular/cli
 EXPOSE 4200
-RUN npm run start
+RUN npm run build
 
 FROM openjdk:8-jre
 WORKDIR /app

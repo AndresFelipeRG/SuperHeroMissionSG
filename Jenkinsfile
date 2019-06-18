@@ -20,13 +20,13 @@ pipeline {
          sh 'mvn install'
         }
       }
-      stage('Angular UI build and run'){
+      stage('Angular UI build'){
         steps{
           nodejs('installation'){
             dir('./webapp'){
               sh 'npm install'
               sh 'npm install -g @angular/cli'
-              sh 'npm run start'
+              sh 'npm run build'
             }
           }
         }
