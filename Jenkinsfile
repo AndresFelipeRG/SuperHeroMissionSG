@@ -18,6 +18,7 @@ pipeline {
         steps{
          sh 'mvn install'
         }
+      }
       stage('Docker: Build and Deploy'){
         steps{
           sh 'docker build --tag superheromission --no-cache .'
@@ -26,6 +27,6 @@ pipeline {
           sh 'docker rmi -f superheromission localhost:5000/superheromission'
         }
       }
-      }
-  }
+      
+   }
 }
