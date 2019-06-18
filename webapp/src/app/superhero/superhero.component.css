@@ -8,7 +8,7 @@ table {
 }
 
 td, th {
-  width: 25%;
+  width: 15%;
 }
 .table-hover td{
   width: 25%;
@@ -21,6 +21,6 @@ td, th {
 .table-hover tr:hover, td:hover{
   background-color:white;
 }
-.table-hover tr:hover, th:hover{
-  background-color:white;
+button {
+  width: 50%;
 }

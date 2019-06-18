@@ -18,6 +18,7 @@
 .table-hover tr:hover, td:hover{
   background-color:white;
 }
-.table-hover tr:hover, th:hover{
-  background-color:white;
+button {
+  width: 50%;
 }
+
