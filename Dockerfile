@@ -4,7 +4,7 @@ COPY  ./ ./
 RUN mvn install
 
 FROM node:8-alpine
-WORKDIR /app/webapp/
+WORKDIR /app/webapp
 RUN npm install
 RUN npm install -g @angular/cli
 EXPOSE 4200
