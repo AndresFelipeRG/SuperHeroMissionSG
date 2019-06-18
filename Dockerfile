@@ -1,10 +1,13 @@
 FROM maven:3.6-jdk-8 
+RUN mkdir -p /app/webapp
 WORKDIR /app
 COPY  ./ ./
 RUN mvn install
 
 FROM node:8-alpine
 WORKDIR /app/webapp
+COPY ./webapp/package.json ./
+COPY ./webapp/package-lock.json ./
 RUN npm install
 RUN npm install -g @angular/cli
 EXPOSE 4200
