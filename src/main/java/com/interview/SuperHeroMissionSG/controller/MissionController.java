@@ -85,6 +85,12 @@ public class MissionController {
         if(parameters.get("_isDeleted") == null){
             return new ResponseEntity<>("{\"empty_isDeleted\": true}", HttpStatus.OK);
         }
+        List<Mission> missionsDB = missionRepository.findByMissionName(parameters.get("missionName"));
+        for(Mission mission: missionsDB){
+            if(mission.getSuperHeroName().equals(parameters.get("_superHeroName"))){
+                return new ResponseEntity<>("{\"duplicate\": true}", HttpStatus.OK);
+            }
+        }
         List<Mission> missionsD = missionRepository.findByMissionName( parameters.get("_missionName"));
         if(missionsD.size() > 0){
             if(parameters.get("_superHeroName") == null ||parameters.get("_superHeroName").isEmpty()){
