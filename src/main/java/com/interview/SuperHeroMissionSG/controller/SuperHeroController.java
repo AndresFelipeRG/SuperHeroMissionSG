@@ -58,6 +58,11 @@ public class SuperHeroController {
                 return new ResponseEntity<>("{\"SuperHeroNameTaken\": true}", HttpStatus.OK);
                 
             }
+            if(hero.getSuperHeroName().equals(parameters.get("superHeroName"))){
+                if(hero.getMissionName().equals(parameters.get("_missionName"))){
+                    return new ResponseEntity<>("{\"duplicate\": true}", HttpStatus.OK);
+                }
+            }
         }
     
         List<SuperHero> heroes = superHeroRepository.findBySuperHeroName( parameters.get("superHeroName"));
