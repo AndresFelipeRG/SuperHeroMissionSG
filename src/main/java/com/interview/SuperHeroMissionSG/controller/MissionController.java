@@ -85,8 +85,27 @@ public class MissionController {
         if(parameters.get("_isDeleted") == null){
             return new ResponseEntity<>("{\"empty_isDeleted\": true}", HttpStatus.OK);
         }
+        List<Mission> missionsD = missionRepository.findByMissionName( parameters.get("_missionName"));
+        if(missionsD.size() > 0){
+            if(parameters.get("_superHeroName") == null ||parameters.get("_superHeroName").isEmpty()){
+                return new ResponseEntity<>("{\"duplicate\": true}", HttpStatus.OK);
+            }
+            for(Mission mission: missionsD){
+                if(parameters.get("_superHeroName")== null || parameters.get("_superHeroName").isEmpty()){
+                    if(mission.getSuperHeroName().equals(parameters.get("superHeroName"))){
+                        return new ResponseEntity<>("{\"duplicate\": true}", HttpStatus.OK);
+                    }
+                }
+                if(parameters.get("superHeroName")!= null && !parameters.get("superHeroName").isEmpty()){
+                    if(mission.getSuperHeroName().equals(parameters.get("_superHeroName"))){
+                        return new ResponseEntity<>("{\"duplicate\": true}", HttpStatus.OK);
+                    }
+                }
+            }
+        }
         List<Mission> missions = missionRepository.findByMissionName( parameters.get("missionName"));
         for(Mission mission: missions){
+            
             mission.setCompleted((parameters.get("_isCompleted")).equals("true"));
             mission.setDeleted((parameters.get("_isDeleted")).equals("true"));
             mission.setSuperHeroName( parameters.get("_superHeroName"));

@@ -52,6 +52,12 @@ public class SuperHeroController {
         if(parameters.get("_superHeroName") == null ||parameters.get("_superHeroName").isEmpty() ){
             return new ResponseEntity<>("{\"emptySuperHeroName\": true}", HttpStatus.OK);
         }
+        List<SuperHero> heroesD = superHeroRepository.findBySuperHeroName( parameters.get("_superHeroName"));
+        
+        if(heroesD.size() > 0){
+            return new ResponseEntity<>("{\"SuperHeroNameTaken\": true}", HttpStatus.OK);
+        }
+       
         List<SuperHero> heroes = superHeroRepository.findBySuperHeroName( parameters.get("superHeroName"));
         for(SuperHero hero: heroes){
             hero.setFirstName((parameters.get("_firstName")));
