@@ -98,7 +98,9 @@ public class MissionController {
                 }
                 if(parameters.get("superHeroName")!= null && !parameters.get("superHeroName").isEmpty()){
                     if(mission.getSuperHeroName().equals(parameters.get("_superHeroName"))){
-                        return new ResponseEntity<>("{\"duplicate\": true}", HttpStatus.OK);
+                        if(mission.isCompleted() == parameters.get("_isCompleted").equals("true")){
+                            return new ResponseEntity<>("{\"duplicate\": true}", HttpStatus.OK);
+                        }
                     }
                 }
             }
