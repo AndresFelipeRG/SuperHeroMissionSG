@@ -4,7 +4,7 @@ WORKDIR /app
 COPY  ./ ./
 RUN mvn install
 
-FROM node:8-alpine
+FROM node:12-alpine
 WORKDIR /app/webapp
 COPY ./webapp/package.json ./
 COPY ./webapp/package-lock.json ./
