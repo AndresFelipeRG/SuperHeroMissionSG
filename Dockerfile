@@ -2,6 +2,7 @@ FROM maven:3.6-jdk-8
 RUN mkdir -p /app/webapp
 WORKDIR /app
 COPY  ./ ./
+COPY ./webapp ./app/webapp
 RUN mvn install
 
 FROM node:12-alpine
