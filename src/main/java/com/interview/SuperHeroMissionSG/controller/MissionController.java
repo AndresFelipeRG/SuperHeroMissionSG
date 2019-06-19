@@ -30,10 +30,15 @@ public class MissionController {
         if(parameters.get("missionName") == null ||parameters.get("missionName").isEmpty() ){
             return new ResponseEntity<>("{\"emptyMissionName\": true}", HttpStatus.OK);
         }
+        if(parameters.get("isDeleted").equals("true")){
+            return new ResponseEntity<>("{\"missionAlreadyDeleted\": true}", HttpStatus.OK);
+        }
         List<Mission> missions = missionRepository.findByMissionName(parameters.get("missionName"));
         for(Mission mission: missions){
             if(mission.getSuperHeroName().equals(parameters.get("superHeroName"))){
-                return new ResponseEntity<>("{\"duplicate\": true}", HttpStatus.OK);
+                if(!mission.isDeleted()){
+                    return new ResponseEntity<>("{\"duplicate\": true}", HttpStatus.OK);
+                }
             }
         }
         missionRepository.save(Mission.builder().isCompleted( (parameters.get("isCompleted")) == null?false:(parameters.get("isCompleted")).equals("true"))
@@ -45,8 +50,7 @@ public class MissionController {
         return new ResponseEntity<>("", HttpStatus.OK);
     }
     @RequestMapping(value="/getAllMissions", method= RequestMethod.GET)
-    public ResponseEntity<String> getAllMissions() throws JSONException{
-        
+    public ResponseEntity<String> getAllMissions() throws JSONException{    
         JSONArray missions= new JSONArray();
         for(Mission mission: missionRepository.findAll()){
             getMission(missions, mission);
@@ -54,18 +58,15 @@ public class MissionController {
         return new ResponseEntity<>(missions.toString(), HttpStatus.OK); 
     }
     @RequestMapping(value="/getMissionByName", method= RequestMethod.GET)
-    public ResponseEntity<String> getMissionByName(@RequestParam Map<String, String> parameters) throws JSONException{
-        
+    public ResponseEntity<String> getMissionByName(@RequestParam Map<String, String> parameters) throws JSONException{ 
         JSONArray missions= new JSONArray();
         for(Mission mission: missionRepository.findByMissionName(parameters.get("missionName"))){
             getMission(missions, mission);
         }
-        return new ResponseEntity<>(missions.toString(), HttpStatus.OK);
-        
+        return new ResponseEntity<>(missions.toString(), HttpStatus.OK);  
     }
     @RequestMapping(value="/getMissionBySuperHeroName", method= RequestMethod.GET)
-    public ResponseEntity<String> getMissionBySuperHeroName(@RequestParam Map<String, String> parameters) throws JSONException{
-        
+    public ResponseEntity<String> getMissionBySuperHeroName(@RequestParam Map<String, String> parameters) throws JSONException{   
         JSONArray missions= new JSONArray();
         for(Mission mission: missionRepository.findBySuperHeroName(parameters.get("superHeroName"))){
             getMission(missions, mission);
@@ -75,6 +76,15 @@ public class MissionController {
     }
     @RequestMapping(value = "/updateMission", method =RequestMethod.POST)
     public ResponseEntity<String> udpdateMission(@RequestBody Map<String, String> parameters){
+        if(parameters.get("_missionName") == null ||parameters.get("_missionName").isEmpty() ){
+            return new ResponseEntity<>("{\"emptyNewMissionName\": true}", HttpStatus.OK);
+        }
+        if(parameters.get("_isCompleted") == null){
+            return new ResponseEntity<>("{\"empty_isCompleted\": true}", HttpStatus.OK);
+        }
+        if(parameters.get("_isDeleted") == null){
+            return new ResponseEntity<>("{\"empty_isDeleted\": true}", HttpStatus.OK);
+        }
         List<Mission> missions = missionRepository.findByMissionName( parameters.get("missionName"));
         for(Mission mission: missions){
             mission.setCompleted((parameters.get("_isCompleted")).equals("true"));
@@ -87,6 +97,9 @@ public class MissionController {
     }
     @RequestMapping(value="/deleteMission", method=RequestMethod.POST)
     public ResponseEntity<String> deleteMission(@RequestBody Map<String, String> parameters){
+        if(parameters.get("missionName") == null ||parameters.get("missionName").isEmpty() ){
+            return new ResponseEntity<>("{\"emptyMissionName\": true}", HttpStatus.OK);
+        }
         List<Mission> missions = missionRepository.findByMissionName(parameters.get("missionName"));
         for(Mission mission: missions){
             missionRepository.delete(mission);

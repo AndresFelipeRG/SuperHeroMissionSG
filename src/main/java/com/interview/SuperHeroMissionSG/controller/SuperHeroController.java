@@ -49,6 +49,9 @@ public class SuperHeroController {
     }
     @RequestMapping(value = "/updateSuperHero", method =RequestMethod.POST)
     public ResponseEntity<String> udpdateSuperHero(@RequestBody Map<String, String> parameters){
+        if(parameters.get("_superHeroName") == null ||parameters.get("_superHeroName").isEmpty() ){
+            return new ResponseEntity<>("{\"emptySuperHeroName\": true}", HttpStatus.OK);
+        }
         List<SuperHero> heroes = superHeroRepository.findBySuperHeroName( parameters.get("superHeroName"));
         for(SuperHero hero: heroes){
             hero.setFirstName((parameters.get("_firstName")));
@@ -60,8 +63,7 @@ public class SuperHeroController {
         return new ResponseEntity<>("", HttpStatus.OK);
     }
     @RequestMapping(value="/getAllSuperHeroes", method= RequestMethod.GET)
-    public ResponseEntity<String> getAllSuperHeroes() throws JSONException{
-        
+    public ResponseEntity<String> getAllSuperHeroes() throws JSONException{   
         JSONArray heroes = new JSONArray();
         for(SuperHero hero: superHeroRepository.findAll()){
             getSuperHero(heroes, hero);
@@ -69,8 +71,7 @@ public class SuperHeroController {
         return new ResponseEntity<>(heroes.toString(), HttpStatus.OK);   
     }
     @RequestMapping(value="/getSuperHeroByName", method= RequestMethod.GET)
-    public ResponseEntity<String> getSuperHeroByName(@RequestParam Map<String, String> parameters) throws JSONException{
-        
+    public ResponseEntity<String> getSuperHeroByName(@RequestParam Map<String, String> parameters) throws JSONException{     
         JSONArray heroes= new JSONArray();
         for(SuperHero hero: superHeroRepository.findBySuperHeroName(parameters.get("superHeroName"))){
             getSuperHero(heroes, hero);
@@ -78,8 +79,7 @@ public class SuperHeroController {
         return new ResponseEntity<>(heroes.toString(), HttpStatus.OK); 
     }
     @RequestMapping(value="/getSuperHeroByMissionName", method= RequestMethod.GET)
-    public ResponseEntity<String> getSuperHeroByMissionName(@RequestParam Map<String, String> parameters) throws JSONException{
-        
+    public ResponseEntity<String> getSuperHeroByMissionName(@RequestParam Map<String, String> parameters) throws JSONException{      
         JSONArray heroes= new JSONArray();
         for(SuperHero hero: superHeroRepository.findByMissionName(parameters.get("missionName"))){
             getSuperHero(heroes, hero);
@@ -119,7 +119,7 @@ public class SuperHeroController {
     private void getSuperHero(JSONArray heroes, SuperHero hero) {
         JSONObject heroJson = new JSONObject();
         heroJson.put("superHeroName", hero.getSuperHeroName());
-        heroJson.put("missionName", hero.getSuperHeroName());
+        heroJson.put("missionName", hero.getMissionName());
         heroJson.put("firstName", hero.getFirstName());
         heroJson.put("lastName", hero.getLastName());
         heroes.put(heroJson);
