@@ -1,0 +1,29 @@
+
+  <h2>Mission Details</h2>
+
+
+<form name = "missionForm" id = "missionForm" [formGroup] ="profileForm" (ngSubmit)="onSubmit()">
+  <div>
+  <label for = "mission._missionName">Mission Name:</label>
+  <h2>{{mission.missionName}}</h2>
+  </div>
+  <input type="text"  class="form-control" id="missionNameInput"  name="missionNameInput" formControlName="_missionName" [(ngModel)]="mission._missionName" ng-minlength="1" ng-maxlength="40" required placeholder="Enter new value">
+
+  <div>
+  <label for = "mission._superHeroName">Super Hero Name:</label>
+  <h2>{{mission.superHeroName}}</h2>
+  </div>
+  <input type="text"  class="form-control" id="superHeroNameInput"  name="superHeroNameInput" formControlName="_superHeroName" [(ngModel)]="mission._superHeroName"  ng-maxlength=40 required placeholder="Enter new value">
+
+  <div>
+    isCompleted : {{mission.isCompleted}}
+  </div>
+  <div>
+    Change value of isCompleted:
+    <input type="checkbox" formControlName="_isCompleted"  [(ngModel)]="mission._isCompleted">
+  </div>
+   <div>
+  <button type="submit" >Submit</button>
+  <button type="cancel" (click)="cancel()">Cancel</button>
+  </div>
+</form>

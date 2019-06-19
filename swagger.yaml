@@ -1,0 +1,380 @@
+swagger: "2.0"
+info:
+  description: "Documentation of Super Hero Mission app in https://github.com/AndresFelipeRG/SuperHeroMissionSG"
+  version: "1.0.0"
+  title: "Swagger Super Hero Mission"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "andres.rincon@mail.mcgill.ca"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost:8085"
+basePath: "/"
+tags:
+- name: "Super Hero"
+  description: "Super Hero API requests"
+  externalDocs:
+    description: "Find out more"
+    url: "https://github.com/AndresFelipeRG/SuperHeroMissionSG"
+- name: "Mission"
+  description: "Mission API requests"
+  externalDocs:
+    description: "Find out more"
+    url: "https://github.com/AndresFelipeRG/SuperHeroMissionSG"
+
+schemes:
+- "https"
+- "http"
+paths:
+  /createMission:
+    post:
+      tags:
+      - "Mission"
+      summary: "Add a new Mission to the database"
+      description: ""
+      operationId: "addMission"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Mission json object to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/Hero"
+      responses:
+        200:
+          description: "OK"
+    
+  /updateMission:
+    post:
+      tags:
+      - "Mission"
+      summary: "updates mission"
+      description: "Update a hero "
+      operationId: "updateMission"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Mission json object to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/Hero"
+      responses:
+        200:
+          description: "OK"
+  /deleteMission:
+    post:
+      tags:
+      - "Mission"
+      summary: "deletes a mission"
+      description: "deletes a mission"
+      operationId: "deleteMission"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Mission json object to be deleted"
+        required: true
+        schema:
+          $ref: "#/definitions/Mission"
+      responses:
+        200:
+          description: "OK"
+  /getAllMissions:
+    get:
+      tags:
+      - "Mission"
+      summary: "Get all missions"
+      description: "Get all missions"
+      operationId: "getAllMissions"
+      produces:
+      - "application/json"
+     
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Mission"
+  /getMissionByName:
+    get:
+      tags:
+      - "Mission"
+      summary: "Get  missions by name"
+      description: "Get  missions by name"
+      operationId: "getMissionByName"
+      produces:
+      - "application/json"
+      parameters:
+     
+      - name: "missionName"
+        in: "path"
+        description: "Name of mission"
+        required: true
+        type: "string"
+     
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Mission"
+  /getMissionBySuperHeroName:
+    get:
+      tags:
+      - "Mission"
+      summary: "Get  missions by super hero name"
+      description: "Get  missions by super hero name"
+      operationId: "getMissionBySuperHeroName"
+      produces:
+      - "application/json"
+      parameters:
+     
+      - name: "superHeroName"
+        in: "path"
+        description: "Name of super hero"
+        required: true
+        type: "string"
+     
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Mission"
+  /createSuperHero:
+    post:
+      tags:
+      - "Hero"
+      summary: "Add a new Hero to the database"
+      description: ""
+      operationId: "addHero"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Hero json object to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/Hero"
+      responses:
+        200:
+          description: "OK"
+    
+  /updateSuperHero:
+    post:
+      tags:
+      - "Hero"
+      summary: "updates hero"
+      description: "Update a hero "
+      operationId: "updateSuperHero"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Hero json object to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/Hero"
+      responses:
+        200:
+          description: "OK"
+  /deleteSuperHero:
+    post:
+      tags:
+      - "Hero"
+      summary: "deletes hero"
+      description: "deletes a hero "
+      operationId: "deleteSuperHero"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Hero json object to be deleted"
+        required: true
+        schema:
+          $ref: "#/definitions/Hero"
+      responses:
+        200:
+          description: "OK"
+    
+  /getAllSuperHeroes:
+    get:
+      tags:
+      - "Hero"
+      summary: "Get all super Heroes"
+      description: "Get all super Heroes"
+      operationId: "getAllSuperHeroes"
+      produces:
+      - "application/json"
+      
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Hero"
+  /getSuperHeroByName:
+      get:
+        tags:
+         - "Hero"
+        summary: "Get super hero by super hero name"
+        description: "Get super hero by super hero name"
+        operationId: "getSuperHeroByName"
+        produces:
+          - "application/json"
+        parameters:
+          - name: "superHeroName"
+            in: "path"
+            description: "Name of Super Hero"
+            required: true
+            type: "string"
+          
+        responses:
+         200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Hero"
+  /getSuperHeroByMissionName:
+      get:
+        tags:
+         - "Hero"
+        summary: "Get super hero by mission name"
+        description: "Get super hero by mission name"
+        operationId: "getSuperHeroByMissionName"
+        produces:
+          - "application/json"
+        parameters:
+        
+          - name: "missionName"
+            in: "path"
+            description: "Name of mission"
+            required: true
+            type: "string"
+         
+        responses:
+         200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Hero"
+  /getActiveMissions:
+      get:
+        tags:
+         - "Hero"
+        summary: "Get a hero's active missions"
+        description: "Get a hero's active missions"
+        operationId: "getActiveMissions"
+        produces:
+          - "application/json"
+        parameters:
+          - name: "superHeroName"
+            in: "path"
+            description: "Name of Super Hero"
+            required: true
+            type: "string"
+          - name: "missionName"
+            in: "path"
+            description: "Name of mission"
+            required: true
+            type: "string"
+          - name: "firstName"
+            in: "path"
+            description: "First Name of Super Hero"
+            required: true
+            type: "string"
+          - name: "lastName"
+            in: "path"
+            description: "Lat Name of Super Hero"
+            required: true
+            type: "string"
+        responses:
+         200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Hero"
+  /getCompletedMissions:
+      get:
+        tags:
+         - "Hero"
+        summary: "Get a hero's completed missions"
+        description:  "Get a hero's completed missions"
+        operationId: "getCompletedMissions"
+        produces:
+          - "application/json"
+        parameters:
+          - name: "superHeroName"
+            in: "path"
+            description: "Name of Super Hero"
+            required: true
+            type: "string"
+          - name: "missionName"
+            in: "path"
+            description: "Name of mission"
+            required: true
+            type: "string"
+          - name: "firstName"
+            in: "path"
+            description: "First Name of Super Hero"
+            required: true
+            type: "string"
+          - name: "lastName"
+            in: "path"
+            description: "Lat Name of Super Hero"
+            required: true
+            type: "string"
+        responses:
+         200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Hero"
+definitions:
+  Hero:
+    type: "object"
+    properties:
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      missionName:
+        type: "string"
+      superHeroName:
+        type: "string"
+  Mission:
+    type: "object"
+    properties:
+      isCompleted:
+        type: "boolean"
+      isDeleted:
+        type: "boolean"
+      missionName:
+        type: "string"
+      superHeroName:
+        type: "string"  
+ 
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"

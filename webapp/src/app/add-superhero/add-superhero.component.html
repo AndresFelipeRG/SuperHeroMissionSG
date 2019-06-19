@@ -1,0 +1,47 @@
+<form name = "superHeroForm" [formGroup] ="profileForm" (ngSubmit)="onSubmit()">
+  <label for = "firstName">Super Hero First Name</label>
+  <input type="text"  class="form-control" id="firstNameInput"  name="firstNameInput" formControlName="firstName" [(ngModel)]="superhero.firstName" ng-minlength="1" ng-maxlength="40" required>
+  <div>
+   <div [hidden]="!firstName" class="alert alert-danger">
+        First Name is too short!
+   </div>
+   <div [hidden]="!firstName" class="alert alert-danger">
+        First Name is too  long!
+   </div>
+
+  </div>
+  <label for = "firstName">Super Hero Last Name</label>
+  <input type="text"  class="form-control" id="lastNameInput"  name="lastNameInput" formControlName="lastName" [(ngModel)]="superhero.lastName" ng-minlength="1" ng-maxlength="40" required>
+  <div>
+   <div [hidden]="!lastName" class="alert alert-danger">
+        Last Name is too short!
+   </div>
+   <div [hidden]="!lastName" class="alert alert-danger">
+        Last Name is too  long!
+   </div>
+  </div>
+  <label>Super Hero Name</label>
+  <input type="text"  class="form-control" id="superHeroNameInput"  name="superHeroNameInput" formControlName="superHeroName" [(ngModel)]="superhero.superHeroName" ng-minlength="1" ng-maxlength="40" required>
+    <div>
+   <div [hidden]="!superHeroName" class="alert alert-danger">
+        Super Hero Name is too short!
+   </div>
+   <div [hidden]="!superHeroName" class="alert alert-danger">
+        Super Hero Name is too  long!
+   </div>
+  </div>
+  <label for = "firstName">Super Hero Mission Name</label>
+  <input type="text"  class="form-control" id="missionNameInput"  name="missionNameInput" formControlName="missionName" [(ngModel)]="superhero.missionName" ng-minlength="1" ng-maxlength="40" required>
+  <div>
+   <div [hidden]="!missionName" class="alert alert-danger">
+        Mission Name is too short!
+   </div>
+   <div [hidden]="!missionName" class="alert alert-danger">
+        Mission Name is too  long!
+   </div>
+  </div>
+  <div>
+  <button type="submit" >Submit</button>
+  <button type="cancel" (click)="cancel()">Cancel</button>
+  </div>
+</form>

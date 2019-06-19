@@ -1,0 +1,26 @@
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 15%;
+}
+.table-hover td{
+  width: 25%;
+  color: blue
+}
+.table-hover th{
+  width: 25%;
+  color: black
+}
+.table-hover tr:hover, td:hover{
+  background-color:white;
+}
+button {
+  width: 50%;
+}

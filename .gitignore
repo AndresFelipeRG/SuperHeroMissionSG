@@ -1,4 +1,7 @@
 HELP.md
+
+jenkins/jenkins_home/**
+
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
