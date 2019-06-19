@@ -1,4 +1,4 @@
-##How to run Jenkins locally and upload app to Docker image inside Jenkins
+## How to run Jenkins locally and upload app to Docker image inside Jenkins
 
 - Install docker
 - Get Docker image jenkins/jenkins: docker pull jenkins/jenkins
