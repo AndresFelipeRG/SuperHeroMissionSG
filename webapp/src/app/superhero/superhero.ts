@@ -1,4 +1,5 @@
-export class SuperHero{
+import {OnInit} from "@angular/core"
+export class SuperHero implements OnInit{
   missionName: string;
   superHeroName: string;
   firstName: string;
@@ -7,6 +8,12 @@ export class SuperHero{
   _superHeroName: string;
   _firstName: string;
   _lastName: string;
+  ngOnInit(): void {
+      this.setFirstName('');
+      this.setLastName('');
+      this.setMissionName('');
+      this.setSuperHeroName('');
+  }
   public  _setMissionName(name: string){
     this._missionName = name;
   }

@@ -41,7 +41,7 @@
    </div>
   </div>
   <div>
-  <button type="submit" >Submit</button>
+  <button type="submit" [disabled]="!profileForm.valid" >Submit</button>
   <button type="cancel" (click)="cancel()">Cancel</button>
   </div>
 </form>

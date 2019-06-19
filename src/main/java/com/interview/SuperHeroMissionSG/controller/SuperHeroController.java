@@ -53,17 +53,19 @@ public class SuperHeroController {
             return new ResponseEntity<>("{\"emptySuperHeroName\": true}", HttpStatus.OK);
         }
         List<SuperHero> heroesD = superHeroRepository.findBySuperHeroName( parameters.get("_superHeroName"));
-        
-        if(heroesD.size() > 0){
-            return new ResponseEntity<>("{\"SuperHeroNameTaken\": true}", HttpStatus.OK);
+        for(SuperHero hero: heroesD){
+            if(!hero.getSuperHeroName().equals(parameters.get("superHeroName"))){
+                return new ResponseEntity<>("{\"SuperHeroNameTaken\": true}", HttpStatus.OK);
+                
+            }
         }
-       
+    
         List<SuperHero> heroes = superHeroRepository.findBySuperHeroName( parameters.get("superHeroName"));
         for(SuperHero hero: heroes){
-            hero.setFirstName((parameters.get("_firstName")));
-            hero.setLastName((parameters.get("_lastName")));
+            hero.setFirstName((parameters.get("_firstName") == null ? "": parameters.get("_firstName")));
+            hero.setLastName((parameters.get("_lastName")== null ? "": parameters.get("_lastName")));
             hero.setSuperHeroName( parameters.get("_superHeroName"));
-            hero.setMissionName( parameters.get("_missionName"));
+            hero.setMissionName(parameters.get("_missionName")== null ? "": parameters.get("_missionName"));
             superHeroRepository.save(hero);
         } 
         return new ResponseEntity<>("", HttpStatus.OK);

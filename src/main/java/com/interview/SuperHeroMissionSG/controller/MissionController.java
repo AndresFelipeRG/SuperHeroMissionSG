@@ -43,8 +43,8 @@ public class MissionController {
         }
         missionRepository.save(Mission.builder().isCompleted( (parameters.get("isCompleted")) == null?false:(parameters.get("isCompleted")).equals("true"))
                                                 .isDeleted(parameters.get("isDeleted") == null?false:parameters.get("isDeleted").equals("true"))
-                                                .missionName((String) (parameters.get("missionName")))
-                                                .superHeroName((String) parameters.get("superHeroName"))
+                                                .missionName((String) (parameters.get("missionName") ))
+                                                .superHeroName((String) parameters.get("superHeroName")== null ? "": parameters.get("superHeroName"))
                                                 .build()
                                                );
         return new ResponseEntity<>("", HttpStatus.OK);
@@ -108,7 +108,7 @@ public class MissionController {
             
             mission.setCompleted((parameters.get("_isCompleted")).equals("true"));
             mission.setDeleted((parameters.get("_isDeleted")).equals("true"));
-            mission.setSuperHeroName( parameters.get("_superHeroName"));
+            mission.setSuperHeroName( parameters.get("_superHeroName") == null ? "": parameters.get("_superHeroName"));
             mission.setMissionName( parameters.get("_missionName"));
             missionRepository.save(mission);
         } 

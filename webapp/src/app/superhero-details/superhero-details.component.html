@@ -5,27 +5,27 @@
   <label for = "superHero._missionName">Mission Name:</label>
   <h2>{{superHero.missionName}}</h2>
   </div>
-  <input type="text"  class="form-control" id="missionNameInput"  name="missionNameInput" formControlName="_missionName" [(ngModel)]="superHero._missionName" ng-minlength="1" ng-maxlength="40" required placeholder="Enter new value">
+  <input type="text"  class="form-control" id="missionNameInput"  name="missionNameInput" formControlName="_missionName" [(ngModel)]="superHero._missionName" ng-minlength="1" ng-maxlength="40" required placeholder="Enter new value" required>
 
   <div>
   <label for = "superHero._superHeroName">Super Hero Name:</label>
   <h2>{{superHero.superHeroName}}</h2>
   </div>
-  <input type="text"  class="form-control" id="superHeroNameInput"  name="superHeroNameInput" formControlName="_superHeroName" [(ngModel)]="superHero._superHeroName"  ng-maxlength=40 required placeholder="Enter new value">
+  <input type="text"  class="form-control" id="superHeroNameInput"  name="superHeroNameInput" formControlName="_superHeroName" [(ngModel)]="superHero._superHeroName"  ng-maxlength=40 required placeholder="Enter new value" required>
   <div>
   <label for = "superHero._firstName">First Name:</label>
   <h2>{{superHero.firstName}}</h2>
   </div>
-  <input type="text"  class="form-control" id="firstNameInput"  name="firstNameInput" formControlName="_firstName" [(ngModel)]="superHero._firstName" ng-minlength="1" ng-maxlength="40" required placeholder="Enter new value">
+  <input type="text"  class="form-control" id="firstNameInput"  name="firstNameInput" formControlName="_firstName" [(ngModel)]="superHero._firstName" ng-minlength="1" ng-maxlength="40" required placeholder="Enter new value" required>
 
   <div>
   <label for = "superHero._lastName">Last Name:</label>
   <h2>{{superHero.lastName}}</h2>
   </div>
-  <input type="text"  class="form-control" id="lastNameInput"  name="lastNameInput" formControlName="_lastName" [(ngModel)]="superHero._lastName"  ng-maxlength=40 required placeholder="Enter new value">
+  <input type="text"  class="form-control" id="lastNameInput"  name="lastNameInput" formControlName="_lastName" [(ngModel)]="superHero._lastName"  ng-maxlength=40 required placeholder="Enter new value" required>
 
    <div>
-  <button type="submit" >Submit</button>
+  <button type="submit" [disabled]="!profileForm.valid">Submit</button>
   <button type="cancel" (click)="cancel()">Cancel</button>
   </div>
 </form>

@@ -12,7 +12,7 @@ export class SuperHeroComponent implements OnInit{
     constructor(private superHeroService: SuperHeroService){ }
 
     ngOnInit(): void {
-     this. getSuperHeroes();
+     this.getSuperHeroes();
 
     }
     onSelect(superHero: SuperHero): void{
