@@ -120,15 +120,15 @@ public class MissionControllerTest {
     @Test
     public void getAllMissionsTest(){
         Map<String, String> parameters = new HashMap<>();
-        parameters.put("missionName", "mission");
-        parameters.put("superHeroName", "hero");
+        parameters.put("missionName", "missionZ");
+        parameters.put("superHeroName", "heroZ");
         parameters.put("isCompleted", "false");
         parameters.put("isDeleted", "false");
         controller.createMission(parameters);
         ResponseEntity<String> missions = controller.getAllMissions();
         JSONArray response = new JSONArray(missions.getBody());
         Assert.assertThat(response.toString(), not("[]"));
-        JSONObject mission = new JSONObject(response.get(0).toString());
+        JSONObject mission = new JSONObject(response.get(1).toString());
         Assert.assertThat(mission.get("missionName"), is(parameters.get("missionName")));
         Assert.assertThat(mission.get("superHeroName"), is(parameters.get("superHeroName")));
         Assert.assertFalse((boolean) mission.get("isCompleted"));
