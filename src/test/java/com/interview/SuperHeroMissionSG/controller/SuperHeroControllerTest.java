@@ -85,12 +85,10 @@ public class SuperHeroControllerTest {
         parameters.put("firstName", "false");
         parameters.put("lastName", "false");
         controller.createSuperHero(parameters);
-        parameters.put("_missionName", "missionD");
         parameters.put("_superHeroName", "heroD");
         parameters.put("_firstName", "");
         parameters.put("_lastName", "");
         controller.udpdateSuperHero(parameters);
-        parameters.put("missionName", "missionD");
         parameters.put("superHeroName", "heroD");
         parameters.put("firstName", "");
         parameters.put("lastName", "");
@@ -203,19 +201,15 @@ public class SuperHeroControllerTest {
     @Test
     public void getCompletedMissions(){
         Map<String, String> parameters = new HashMap<>();
-        parameters.put("missionName", "missionA");
-        parameters.put("superHeroName", "heroB");
+        parameters.put("missionName", "missionD");
+        parameters.put("superHeroName", "heroD");
         parameters.put("firstName", "false");
         parameters.put("lastName", "false");
         controller.createSuperHero(parameters);
-        
-        Map<String, String> parametersM = new HashMap<>();
-        parametersM.put("missionName", parameters.get("missionName"));
-        parametersM.put("superHeroName", parameters.get("superHeroName"));
-        parametersM.put("isCompleted", "true");
-        parametersM.put("isDeleted", "false");
-        controllerM.createMission(parametersM);
-        
+        parameters.put("_missionName", "missionD");
+        parameters.put("_isCompleted","true");
+        parameters.put("_isDeleted","false");
+        controllerM.udpdateMission(parameters);
         List<Mission> missions = repositoryM.findByMissionName(parameters.get("missionName"));
         Assert.assertThat(missions.size(), is(1));
         Assert.assertThat(missions.get(0).getMissionName(), is(parameters.get("missionName")));
@@ -232,7 +226,6 @@ public class SuperHeroControllerTest {
         Assert.assertFalse((boolean) mission.get("isDeleted"));
 
         controller.deleteSuperHero(parameters);
-        controllerM.deleteMission(parametersM);
     }
     @Test
     public void deleteSuperHeroTest(){

@@ -1,11 +1,6 @@
   <h2>Super Hero Details</h2>
   <form name = "superHeroForm" id = "superHeroForm" [formGroup] ="profileForm" (ngSubmit)="onSubmit()">
 
-  <div>
-  <label for = "superHero._missionName">Mission Name:</label>
-  <h2>{{superHero.missionName}}</h2>
-  </div>
-  <input type="text"  class="form-control" id="missionNameInput"  name="missionNameInput" formControlName="_missionName" [(ngModel)]="superHero._missionName" ng-minlength="1" ng-maxlength="40" required placeholder="Enter new value" required>
 
   <div>
   <label for = "superHero._superHeroName">Super Hero Name:</label>

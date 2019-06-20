@@ -13,7 +13,6 @@ export class MissionDetailsComponent implements OnInit {
   private sub: any;
   profileForm = new FormGroup({
     _missionName: new FormControl(''),
-    _superHeroName: new FormControl(''),
     _isCompleted: new FormControl()
   });
   constructor(private route: ActivatedRoute, private router: Router,  private missionService: MissionService) { }

@@ -33,18 +33,23 @@ public class SuperHeroController {
         if(parameters.get("superHeroName") == null ||parameters.get("superHeroName").isEmpty() ){
             return new ResponseEntity<>("{\"emptySuperHeroName\": true}", HttpStatus.OK);
         }
+        if(parameters.get("missionName") == null ||parameters.get("missionName").isEmpty() ){
+            return new ResponseEntity<>("{\"missionNameEmpty\": true}", HttpStatus.OK);
+        }
         List<SuperHero> heroes = superHeroRepository.findBySuperHeroName( parameters.get("superHeroName"));
         for(SuperHero hero: heroes){
             if(hero.getMissionName().equals(parameters.get("missionName"))){
                 return new ResponseEntity<>("{\"duplicate\": true}", HttpStatus.OK);
             }
         }
-        superHeroRepository.save(SuperHero.builder().firstName(parameters.get("firstName"))
-                                                    .lastName(parameters.get("lastName"))
-                                                    .missionName(parameters.get("missionName"))
-                                                    .superHeroName((parameters.get("superHeroName")))
-                                                    .build()
-                                               );
+        List<Mission> mission = missionRepository.findByMissionName(parameters.get("missionName"));
+        if(mission.size() > 0){
+            saveHero(parameters);
+            saveMission(mission.get(0).getMissionName(),mission.get(0).isCompleted(),mission.get(0).isDeleted(), parameters.get("superHeroName") );
+            return new ResponseEntity<>("", HttpStatus.OK);
+        }
+        saveHero(parameters);
+        saveMission(parameters.get("missionName"), false, false, parameters.get("superHeroName"));
         return new ResponseEntity<>("", HttpStatus.OK);
     }
     @RequestMapping(value = "/updateSuperHero", method =RequestMethod.POST)
@@ -53,17 +58,16 @@ public class SuperHeroController {
             return new ResponseEntity<>("{\"emptySuperHeroName\": true}", HttpStatus.OK);
         }
         List<SuperHero> heroesD = superHeroRepository.findBySuperHeroName( parameters.get("_superHeroName"));
-        if(heroesD.size() > 0){
-            return new ResponseEntity<>("{\"duplicate\": true}", HttpStatus.OK);
-        } 
-        List<SuperHero> heroes = superHeroRepository.findBySuperHeroName( parameters.get("superHeroName"));
-        for(SuperHero hero: heroes){
-            hero.setFirstName((parameters.get("_firstName") == null ? "": parameters.get("_firstName")));
-            hero.setLastName((parameters.get("_lastName")== null ? "": parameters.get("_lastName")));
-            hero.setSuperHeroName( parameters.get("_superHeroName"));
-            hero.setMissionName(parameters.get("_missionName")== null ? "": parameters.get("_missionName"));
-            superHeroRepository.save(hero);
-        } 
+        if(!(heroesD.size() > 0)){
+            List<SuperHero> heroes = superHeroRepository.findBySuperHeroName( parameters.get("superHeroName"));
+            for(SuperHero hero: heroes){
+                hero.setFirstName((parameters.get("_firstName") == null ? "": parameters.get("_firstName")));
+                hero.setLastName((parameters.get("_lastName")== null ? "": parameters.get("_lastName")));
+                hero.setSuperHeroName( parameters.get("_superHeroName"));
+                superHeroRepository.save(hero);
+            } 
+            notifyMissionsSuperHeroesNameChange(parameters);
+        }
         return new ResponseEntity<>("", HttpStatus.OK);
     }
     @RequestMapping(value="/getAllSuperHeroes", method= RequestMethod.GET)
@@ -95,6 +99,10 @@ public class SuperHeroController {
         List<SuperHero> heroes = superHeroRepository.findBySuperHeroName(parameters.get("superHeroName"));
         for(SuperHero hero: heroes){
             superHeroRepository.delete(hero);
+        }
+        List<Mission> missions = missionRepository.findBySuperHeroName(parameters.get("superHeroName"));
+        for(Mission mission: missions){
+            missionRepository.delete(mission);
         }
         return new ResponseEntity<>("", HttpStatus.OK);
     }
@@ -135,5 +143,26 @@ public class SuperHeroController {
         missionJson.put("isCompleted", mission.isCompleted());
         missionJson.put("isDeleted", mission.isDeleted());
         missions.put(missionJson);
+    }
+    private void saveHero(Map<String, String> parameters) {
+        superHeroRepository.save(SuperHero.builder().firstName(parameters.get("firstName"))
+                                                    .lastName(parameters.get("lastName"))
+                                                    .missionName(parameters.get("missionName"))
+                                                    .superHeroName((parameters.get("superHeroName")))
+                                                    .build());
+    }
+    private void notifyMissionsSuperHeroesNameChange(Map<String, String> parameters){
+        List<Mission> missions = missionRepository.findBySuperHeroName(parameters.get("superHeroName"));
+        for(Mission mission: missions){
+            mission.setSuperHeroName((parameters.get("_superHeroName")));
+            missionRepository.save(mission);
+        }
+    }
+    private void saveMission(String missionName, boolean isCompleted, boolean isDeleted, String superHero){
+        missionRepository.save(Mission.builder().isCompleted(isCompleted)
+                                                .isDeleted(isDeleted)
+                                                .missionName(missionName)
+                                                .superHeroName(superHero)
+                                                .build());   
     }
 }

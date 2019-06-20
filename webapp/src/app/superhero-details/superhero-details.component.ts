@@ -12,7 +12,6 @@ export class SuperHeroDetailsComponent implements OnInit {
   superHero: SuperHero;
   private sub: any;
   profileForm = new FormGroup({
-    _missionName: new FormControl(''),
     _superHeroName: new FormControl(''),
     _firstName: new FormControl(''),
     _lastName: new FormControl('')
