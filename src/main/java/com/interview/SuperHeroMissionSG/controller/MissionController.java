@@ -54,6 +54,7 @@ public class MissionController {
             if(!heroesByMissionName.removeIf(hero -> hero.getSuperHeroName().equals(parameters.get("superHeroName")))){
                 if(heroes.size() > 0){
                     saveMission(parameters);
+                    notifySuperHeroMissionCreated(parameters);
                 }
             }
             return new ResponseEntity<>("", HttpStatus.OK);
